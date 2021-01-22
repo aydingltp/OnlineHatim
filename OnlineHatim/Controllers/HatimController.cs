@@ -15,34 +15,47 @@ namespace OnlineHatim.Controllers
     public class HatimController : ControllerBase
     {
         private readonly DataContext _context;
-        private readonly SlugHelper _helper;
-        public HatimController(DataContext context, SlugHelper helper)
+        private readonly ISlugHelper _helper;
+        public HatimController(DataContext context, ISlugHelper helper)
         {
             _context = context;
             _helper = helper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Hatim>>> GetHatimler()
+        public async Task<ActionResult<List<Hatim>>> GetAll()
         {
             var hatimler = await _context.Hatims.ToListAsync();
 
-            if (hatimler == null)
+            if (hatimler.Count == 0)
                 return BadRequest();
 
-            return hatimler;
+            return Ok(hatimler);
         }
+
+        [HttpGet("{code}")]// api/hatim/code?=
+        public async Task<ActionResult<Hatim>> GetByUrlCode(string code)
+        {
+            var hatim = await _context.Hatims.FirstOrDefaultAsync(p => p.UrlCode == code);
+            if (hatim==null)
+                BadRequest();
+
+            return Ok(hatim);
+        }
+
         [HttpPost]
         public async Task<ActionResult> Create(string name)
         {
+            if (string.IsNullOrEmpty(name)) BadRequest();
+
             var hatim = new Hatim
             {
                 Name = name,
                 UrlCode = CreateUrlCode(name)
             };
-            await  _context.Hatims.AddAsync(hatim);
-            await  _context.SaveChangesAsync();
-            
+            await _context.Hatims.AddAsync(hatim);
+            await _context.SaveChangesAsync();
+
             return Ok(hatim);
         }
 
