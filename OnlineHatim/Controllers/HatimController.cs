@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OnlineHatim.Models;
+using Slugify;
 
 namespace OnlineHatim.Controllers
 {
@@ -14,9 +15,11 @@ namespace OnlineHatim.Controllers
     public class HatimController : ControllerBase
     {
         private readonly DataContext _context;
-        public HatimController(DataContext context)
+        private readonly SlugHelper _helper;
+        public HatimController(DataContext context, SlugHelper helper)
         {
             _context = context;
+            _helper = helper;
         }
 
         [HttpGet]
@@ -30,18 +33,31 @@ namespace OnlineHatim.Controllers
             return hatimler;
         }
         [HttpPost]
-        public async ActionResult Create(string name)
+        public async Task<ActionResult> Create(string name)
         {
-            new Hatim
+            var hatim = new Hatim
             {
                 Name = name,
-                UrlCode = ""
+                UrlCode = CreateUrlCode(name)
             };
+            await  _context.Hatims.AddAsync(hatim);
+            await  _context.SaveChangesAsync();
+            
+            return Ok(hatim);
         }
 
-        string CreateUrlCode()
+        [NonAction]
+        string CreateUrlCode(string name)
         {
+            var urlCode = _helper.GenerateSlug(name);
+            var i = 0;
+            while (_context.Hatims.Any(p => p.UrlCode == urlCode))
+            {
+                urlCode += i;
+                i++;
+            }
 
+            return urlCode;
         }
 
     }
