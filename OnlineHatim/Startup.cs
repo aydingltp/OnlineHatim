@@ -9,6 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using OnlineHatim.Models;
+using Slugify;
 using VueCliMiddleware;
 
 namespace OnlineHatim
@@ -25,6 +28,9 @@ namespace OnlineHatim
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ISlugHelper,SlugHelper>();
+            services.AddDbContext<DataContext>(
+                options => options.UseSqlServer(@"Server = (localdb)\MSSQLLocalDB; Database = OnlineHatim"));
             services.AddControllers();
             services.AddSpaStaticFiles(configuration =>
             {
@@ -39,7 +45,6 @@ namespace OnlineHatim
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
             app.UseSpaStaticFiles();
             app.UseAuthorization();
