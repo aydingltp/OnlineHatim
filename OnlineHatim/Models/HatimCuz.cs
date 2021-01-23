@@ -8,9 +8,13 @@ namespace OnlineHatim.Models
 {
     public class HatimCuz
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int Id { get; set; } 
+        public int? UserId { get; set; }  
+        public User User { get; set; } 
         public int CuzNo { get; set; }
+        public Hatim Hatim { get; set; }
+        public int HatimId { get; set; }
+
+
     }
 }

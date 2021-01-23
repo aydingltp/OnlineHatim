@@ -58,6 +58,18 @@ namespace OnlineHatim.Controllers
             await _context.Hatims.AddAsync(hatim);
             await _context.SaveChangesAsync();
 
+            var hatimcuz = new List<HatimCuz>();
+            for (int i = 1; i <= 30; i++)
+            {
+                hatimcuz.Add(new HatimCuz
+                {
+                    CuzNo = i,
+                    HatimId = hatim.Id
+                });
+            }
+            await _context.HatimCuzes.AddRangeAsync(hatimcuz);
+            await _context.SaveChangesAsync ();
+
             return Ok(new HatimDto { Name = hatim.Name, EndDate = hatim.EndDate, UrlCode = hatim.UrlCode });
         }
 
