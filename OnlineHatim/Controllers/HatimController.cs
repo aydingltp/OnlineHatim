@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OnlineHatim.Models;
+using OnlineHatim.Models.DtoModels;
 using Slugify;
 
 namespace OnlineHatim.Controllers
@@ -37,26 +38,27 @@ namespace OnlineHatim.Controllers
         public async Task<ActionResult<Hatim>> GetByUrlCode(string code)
         {
             var hatim = await _context.Hatims.FirstOrDefaultAsync(p => p.UrlCode == code);
-            if (hatim==null)
-                BadRequest();
+            if (hatim == null)
+                return BadRequest();
 
-            return Ok(hatim);
+            return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name });
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(string name)
+        public async Task<ActionResult> Create(Hatim data)
         {
-            if (string.IsNullOrEmpty(name)) BadRequest();
+            if (string.IsNullOrEmpty(data.Name)) return BadRequest();
 
             var hatim = new Hatim
             {
-                Name = name,
-                UrlCode = CreateUrlCode(name)
+                Name = data.Name,
+                EndDate = data.EndDate,
+                UrlCode = CreateUrlCode(data.Name)
             };
             await _context.Hatims.AddAsync(hatim);
             await _context.SaveChangesAsync();
 
-            return Ok(hatim);
+            return Ok(new HatimDto { Name = hatim.Name, EndDate = hatim.EndDate, UrlCode = hatim.UrlCode });
         }
 
         [NonAction]
