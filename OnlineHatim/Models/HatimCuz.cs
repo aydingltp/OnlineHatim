@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+
 
 namespace OnlineHatim.Models
 {
@@ -12,8 +14,9 @@ namespace OnlineHatim.Models
         public int? UserId { get; set; }  
         public User User { get; set; } 
         public int CuzNo { get; set; }
+
+        [JsonIgnore]
         public Hatim Hatim { get; set; }
-        public int HatimId { get; set; }
 
 
     }
