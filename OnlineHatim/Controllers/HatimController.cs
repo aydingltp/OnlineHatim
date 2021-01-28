@@ -34,9 +34,9 @@ namespace OnlineHatim.Controllers
             return Ok(hatimler);
         }
 
-        [HttpGet("{code}")]// api/hatim/code?=
+        [HttpGet("{code}")]// api/hatim/londra
         public async Task<ActionResult<Hatim>> GetByUrlCode(string code)
-        {
+        {   
             var hatim = await _context.Hatims.FirstOrDefaultAsync(p => p.UrlCode == code);
             if (hatim == null)
                 return BadRequest();
