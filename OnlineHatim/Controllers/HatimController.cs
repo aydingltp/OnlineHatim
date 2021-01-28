@@ -26,7 +26,7 @@ namespace OnlineHatim.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Hatim>>> GetAll()
         {
-            var hatimler = await _context.Hatims.Include(i=>i.HatimCuz).ToListAsync();
+            var hatimler = await _context.Hatims.Include(i => i.HatimCuz).ToListAsync();
 
             if (hatimler.Count == 0)
                 return BadRequest();
@@ -36,12 +36,13 @@ namespace OnlineHatim.Controllers
 
         [HttpGet("{code}")]// api/hatim/londra
         public async Task<ActionResult<Hatim>> GetByUrlCode(string code)
-        {   
-            var hatim = await _context.Hatims.FirstOrDefaultAsync(p => p.UrlCode == code);
+        {
+            var hatim = await _context.Hatims.Include(p => p.HatimCuz).FirstOrDefaultAsync(p => p.UrlCode == code);
             if (hatim == null)
                 return BadRequest();
+            var cuzler = await _context.HatimCuzes.Where(p => p.Hatim.Id == hatim.Id).ToListAsync();
 
-            return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name });
+            return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name,HatimCuz = cuzler });
         }
 
         [HttpPost]
@@ -68,7 +69,7 @@ namespace OnlineHatim.Controllers
                 });
             }
             await _context.HatimCuzes.AddRangeAsync(hatimcuz);
-            await _context.SaveChangesAsync ();
+            await _context.SaveChangesAsync();
 
             return Ok(new HatimDto { Name = hatim.Name, EndDate = hatim.EndDate, UrlCode = hatim.UrlCode });
         }

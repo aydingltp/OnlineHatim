@@ -10,7 +10,7 @@ hatimlisttttt
         <tr v-for="cuz in cuzler" :key="cuz.id">
             <td>{{cuz.name}}</td>
             <td>{{cuz.endDate}}</td>
-            <td></> {{cuz.urlCode}}</td>
+            <td>{{cuz.urlCode}}</td>
         </tr>
     </table>
 </div>
