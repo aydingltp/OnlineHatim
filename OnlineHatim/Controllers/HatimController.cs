@@ -37,12 +37,13 @@ namespace OnlineHatim.Controllers
         [HttpGet("{code}")]// api/hatim/londra
         public async Task<ActionResult<Hatim>> GetByUrlCode(string code)
         {
-            var hatim = await _context.Hatims.Include(p => p.HatimCuz).FirstOrDefaultAsync(p => p.UrlCode == code);
+            var hatim = await _context.Hatims.Include(p => p.HatimCuz).ThenInclude(p=>p.User).FirstOrDefaultAsync(p => p.UrlCode == code);
             if (hatim == null)
                 return BadRequest();
-            var cuzler = await _context.HatimCuzes.Where(p => p.Hatim.Id == hatim.Id).ToListAsync();
+            //var cuzler = await _context.HatimCuzes.Where(p => p.Hatim.Id == hatim.Id).ToListAsync();
 
-            return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name,HatimCuz = cuzler });
+            ///return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name,HatimCuz = cuzler });
+            return Ok(hatim);
         }
 
         [HttpPost]
