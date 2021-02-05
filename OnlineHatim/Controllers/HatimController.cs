@@ -26,7 +26,7 @@ namespace OnlineHatim.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Hatim>>> GetAll()
         {
-            var hatimler = await _context.Hatims.Include(i => i.HatimCuz).ToListAsync();
+            var hatimler = await _context.Hatims.ToListAsync();
 
             if (hatimler.Count == 0)
                 return BadRequest();
@@ -42,7 +42,7 @@ namespace OnlineHatim.Controllers
                 return BadRequest();
             //var cuzler = await _context.HatimCuzes.Where(p => p.Hatim.Id == hatim.Id).ToListAsync();
 
-            ///return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name,HatimCuz = cuzler });
+            //return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name,HatimCuz = cuzler });
             return Ok(hatim);
         }
 
