@@ -14,6 +14,8 @@ Migrations/
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+.vscode/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -339,3 +341,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/OnlineHatim/ClientApp/public/img/brand
+/OnlineHatim/ClientApp/public/img/theme
