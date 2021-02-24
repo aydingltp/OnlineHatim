@@ -40,10 +40,10 @@ namespace OnlineHatim.Controllers
             var hatim = await _context.Hatims.Include(p => p.HatimCuz).ThenInclude(p=>p.User).FirstOrDefaultAsync(p => p.UrlCode == code);
             if (hatim == null)
                 return BadRequest();
-            //var cuzler = await _context.HatimCuzes.Where(p => p.Hatim.Id == hatim.Id).ToListAsync();
 
-            //return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name,HatimCuz = cuzler });
-            return Ok(hatim);
+            var cuz = hatim.HatimCuz.OrderBy(p=>p.CuzNo).ToList();
+
+            return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name, HatimCuz = cuz});
         }
 
         [HttpPost]
