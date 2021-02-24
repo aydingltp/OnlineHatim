@@ -1,28 +1,31 @@
 ﻿<template>
-  <div class="container shape-container align-items-center">
-    <div class="col px-0">
+  <div class="container shape-container align-items-center pl-5 pr-5">
+    <div class="col px-0 pl-4 pr-4">
       <div class="row justify-content-center align-items-center">
         <div class="col-lg-7 text-center pt-lg">
-          <h3 class="text">Hatim Oluştur</h3>
+          <h3 class="text">Hatme Katıl</h3>
         </div>
       </div>
       <div class="row justify-content-center align-items-center">
-         <table>
-      <tr>
-        <th>Hatim İsmi</th>
-        <th>Bitiş Tarihi</th>
-      </tr>
-      <tr v-for="cuz in cuzler" :key="cuz.id">
-        <td><a v-bind:href="'/'+ cuz.urlCode"> {{ cuz.name }}</a></td>
-        <td>{{ cuz.endDate }}</td>
-      </tr>
-    </table>
+        <table class="table table-hover text-center">
+          <thead>
+            <tr>
+              <th scope="col">Hatim İsmi</th>
+              <th scope="col">Bitiş Tarihi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="cuz in cuzler" :key="cuz.id">
+              <td>
+                <a v-bind:href="'/' + cuz.urlCode"> {{ cuz.name }}</a>
+              </td>
+              <td>{{ cuz.endDate }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div> 
     </div>
-
-
-  
+  </div>
 </template>
 
 <script>
