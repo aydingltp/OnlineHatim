@@ -1,38 +1,70 @@
 <template>
-  <div class="hatimdetail">
-    hatim detail
-    {{ title }}
-    <div class="container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Cüz No:</th>
-            <th scope="col">İsim</th>
-            <th scope="col">Soyisim</th>
-            <th scope="col">Durum</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="cuz in cuzler" :key="cuz.id">
-            <td>{{ cuz.cuzNo }}. Cüz</td>
-            <td v-if="cuz.userId">
-              <input aria-describedby="addon-right addon-left" v-bind:placeholder= 'cuz.user.name' disabled="disabled" class="form-control">
+  <div class="container shape-container align-items-center pl-5 pr-5">
+    <div class="col px-0 pl-4 pr-4">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-lg-7 text-center pt-lg">
+          <h3 class="text">{{ title }}</h3>
+        </div>
+      </div>
+      <div class="row justify-content-center align-items-center">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Cüz No:</th>
+              <th scope="col">İsim</th>
+              <th scope="col">Soyisim</th>
+              <th scope="col">Durum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="cuz in cuzler" :key="cuz.id">
+              <td>
+                <strong> {{ cuz.cuzNo }}. Cüz</strong>
               </td>
-            <td v-else>
-              <input aria-describedby="addon-right addon-left" placeholder="İsim" class="form-control is-valid">
-            </td>
-            <td v-if="cuz.userId">
-              <input aria-describedby="addon-right addon-left" v-bind:placeholder=  'cuz.user.surname' disabled="disabled" class="form-control">
-          
-            </td>
-            <td v-else>
-              <input aria-describedby="addon-right addon-left" placeholder="Soyisim" class="form-control is-valid">
-            </td>
-            <td v-if="cuz.userId">Alınmış</td>
-            <td v-else><button type="submit" class="btn btn-success">Save</button></td>
-          </tr>
-        </tbody>
-      </table>
+              <td v-if="cuz.userId">
+                <input
+                  aria-describedby="addon-right addon-left"
+                  v-bind:placeholder="cuz.user.name"
+                  disabled="disabled"
+                  class="form-control"
+                />
+              </td>
+              <td v-else>
+                <input
+                  aria-describedby="addon-right addon-left"
+                  placeholder="İsim"
+                  class="form-control is-valid"
+                />
+              </td>
+              <td v-if="cuz.userId">
+                <input
+                  aria-describedby="addon-right addon-left"
+                  v-bind:placeholder="cuz.user.surname"
+                  disabled="disabled"
+                  class="form-control"
+                />
+              </td>
+              <td v-else>
+                <input
+                  aria-describedby="addon-right addon-left"
+                  placeholder="Soyisim"
+                  class="form-control is-valid"
+                />
+              </td>
+              <td v-if="cuz.userId">
+                <span class="badge text-uppercase badge-danger"
+                  >Cüz Alındı</span
+                >
+              </td>
+              <td v-else>
+                <button type="submit" class="btn btn-success btn-sm mt-2">
+                  Kaydet
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
