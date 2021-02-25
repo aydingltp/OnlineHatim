@@ -17,7 +17,9 @@
           <tbody>
             <tr v-for="cuz in cuzler" :key="cuz.id">
               <td>
-                <a v-bind:href="'/' + cuz.urlCode"> {{ cuz.name }}</a>
+                <router-link :to="'/'+cuz.urlCode">
+                   {{ cuz.name }}
+                </router-link>
               </td>
               <td>{{ cuz.endDate }}</td>
             </tr>
