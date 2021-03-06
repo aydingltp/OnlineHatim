@@ -80,7 +80,8 @@ namespace OnlineHatim.Controllers
             {
                 Name = data.Name,
                 EndDate = data.EndDate,
-                UrlCode = CreateUrlCode(data.Name)
+                UrlCode = CreateUrlCode(data.Name),
+                IsPrivate = data.IsPrivate
             };
             await _context.Hatims.AddAsync(hatim);
             await _context.SaveChangesAsync();
