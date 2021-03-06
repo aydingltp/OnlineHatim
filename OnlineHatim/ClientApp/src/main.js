@@ -4,7 +4,9 @@ import router from "./router";
 import Argon from "./plugins/argon-kit";
 import './registerServiceWorker'
 import Notifications from 'vue-notification'
+import VueContentPlaceholders from 'vue-content-placeholders'
 
+Vue.use(VueContentPlaceholders)
 Vue.use(Notifications)
 Vue.use(require('vue-moment'));
 
