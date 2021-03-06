@@ -48,7 +48,7 @@ namespace OnlineHatim.Controllers
 
             if (hatimler.Count == 0)
                 return BadRequest();
-
+            System.Threading.Thread.Sleep(1000);
             return Ok(hatimler);
         }
 
@@ -67,7 +67,7 @@ namespace OnlineHatim.Controllers
         {
             var hatim = await _context.Hatims.Include(p => p.HatimCuz).FirstOrDefaultAsync(p => p.UrlCode == code);
             var cuz = hatim.HatimCuz.OrderBy(p => p.CuzNo).ToList();
-
+            System.Threading.Thread.Sleep(1000);
             return new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate.Date, Name = hatim.Name, HatimCuz = cuz };
         }
 
