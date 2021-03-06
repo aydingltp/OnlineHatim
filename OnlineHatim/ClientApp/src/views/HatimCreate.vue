@@ -36,9 +36,12 @@
       </div>
     </div>
     <div class="row justify-content-center align-items-center">
-      <base-checkbox class="mb-3" v-model="hatim.isPrivate">
+      <base-checkbox class="mb-3" v-model="hatim.isPrivate" :disabled="saveEnabled" >
       Gizli Hatim
       </base-checkbox>
+    </div>
+    <div class="row justify-content-center align-items-center" v-if="hatim.isPrivate">
+          <p style="font-color: green">(Hatminiz hatim listesinde gözükmeyecektir.)</p>
     </div>
       
     <div class="row justify-content-center align-items-center pb-4">
