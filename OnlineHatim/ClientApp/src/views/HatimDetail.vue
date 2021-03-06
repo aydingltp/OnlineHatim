@@ -8,12 +8,7 @@
         </div>
       </div>
       <div class="row justify-content-center align-items-center">
-        <table class="table table-hover">
-           <div v-if="loading">
-              <content-placeholders>
-                <content-placeholders-heading :lines="30" />
-              </content-placeholders>
-            </div>
+        <table class="table table-hover">         
           <thead>
             <tr>
               <th scope="col">Cüz:</th>
@@ -21,8 +16,13 @@
               <th scope="col">Durum</th>
             </tr>
           </thead>
+         
           <tbody>
-            
+             <div v-if="loading" style="">
+                <content-placeholders>
+                  <content-placeholders-text :lines="30" />
+                </content-placeholders>
+            </div>
             <tr v-for="(cuz, id) in cuzler" :key="id">
               <td class="cuzno">{{ cuz.cuzNo }}.Cüz</td>
   
