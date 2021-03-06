@@ -11,8 +11,7 @@
     <div class="row justify-content-center align-items-center">
       <div class="col-lg-4 col-sm-6">
         <small class="d-block text-uppercase font-weight-bold mb-3"
-          >HATİM İSMİ</small
-        >
+          >HATİM İSMİ</small>
         <base-input placeholder="Hatim İsmi" v-model="hatim.name" :disabled="saveEnabled"> </base-input>
       </div>
       <div class="col-lg-4 col-sm-6">
@@ -36,6 +35,12 @@
         </base-input>
       </div>
     </div>
+    <div class="row justify-content-center align-items-center">
+      <base-checkbox class="mb-3" v-model="hatim.isPrivate">
+      Gizli Hatim
+      </base-checkbox>
+    </div>
+      
     <div class="row justify-content-center align-items-center pb-4">
       <base-button @click="post" :disabled="saveEnabled" class="btn-1" type="success">Kaydet</base-button>
     </div>
@@ -71,6 +76,7 @@ export default {
         name: null,
         endDate: null,
         urlCode: null,
+        isPrivate: false
       },
       link: "hatim.dirayettv.net/",
     };
