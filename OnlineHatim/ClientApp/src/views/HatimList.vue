@@ -15,13 +15,19 @@
             </tr>
           </thead>
           <tbody>
+            <div v-if="loading">
+              <content-placeholders>
+                <content-placeholders-text :lines="30" />
+              </content-placeholders>
+            </div>
+
             <tr v-for="cuz in cuzler" :key="cuz.id">
               <td>
-                <router-link :to="'/'+cuz.urlCode">
-                   {{ cuz.name }}
+                <router-link :to="'/' + cuz.urlCode">
+                  {{ cuz.name }}
                 </router-link>
               </td>
-              <td>{{ cuz.endDate | moment("DD / MM / YYYY")  }}</td>
+              <td>{{ cuz.endDate | moment("DD / MM / YYYY") }}</td>
             </tr>
           </tbody>
         </table>
@@ -40,18 +46,14 @@ export default {
     return {
       cuzler: [],
       title: null,
-      checkboxes: {
-        unchecked: false,
-        checked: true,
-        uncheckedDisabled: false,
-        checkedDisabled: true,
-      },
+      loading: true
     };
   },
   created() {
     axios.get("api/hatim/", {}).then((obj) => {
       this.cuzler = obj.data;
       console.log(obj.data);
+      this.loading = false;
     });
   },
 };

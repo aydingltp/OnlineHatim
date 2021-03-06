@@ -9,6 +9,11 @@
       </div>
       <div class="row justify-content-center align-items-center">
         <table class="table table-hover">
+           <div v-if="loading">
+              <content-placeholders>
+                <content-placeholders-heading :lines="30" />
+              </content-placeholders>
+            </div>
           <thead>
             <tr>
               <th scope="col">Cüz:</th>
@@ -17,9 +22,10 @@
             </tr>
           </thead>
           <tbody>
+            
             <tr v-for="(cuz, id) in cuzler" :key="id">
               <td class="cuzno">{{ cuz.cuzNo }}.Cüz</td>
-
+  
               <td v-if="cuz.fullName">
                 <input
                   aria-describedby="addon-right addon-left"
@@ -71,6 +77,7 @@ export default {
       urlCode: null,
       title: null,
       fullNames: [],
+      loading: true
     };
   },
   methods: {
@@ -80,8 +87,7 @@ export default {
           "api/hatim/takecuz/" + this.title + "/" + id + "?fullName=" + fullName
         )
         .then((obj) => {
-          if (obj.status === 200) {
-            this.show = true;
+          if (obj.status === 200) {            
             this.cuzler = obj.data.hatimCuz;
             console.log("cuzler : " + obj.data.hatimCuz);
             this.hatim = obj.data;
@@ -99,6 +105,7 @@ export default {
   },
   async created() {
     await axios.get("api/hatim/" + this.$route.params.id, {}).then((obj) => {
+      this.loading = false;
       this.cuzler = obj.data.hatimCuz;
       this.hatimName = obj.data.name;
       this.urlCode = obj.data.urlCode;
