@@ -23,6 +23,24 @@ namespace OnlineHatim.Controllers
             _helper = helper;
         }
 
+        [HttpPost("takecuz/{hatimName}/{id?}")]
+        public async Task<ActionResult> TakeCuzById([FromRoute] string hatimName, [FromRoute] int id, [FromQuery] string fullName)
+        {
+            var hatim = await _context.Hatims.Include(p => p.HatimCuz).Where(p => p.UrlCode == hatimName).FirstOrDefaultAsync();
+            var cuz = hatim.HatimCuz.Where(p => p.CuzNo == id + 1).FirstOrDefault();
+            cuz.FullName = fullName;
+            _context.Update(hatim);
+
+            var saveChanges = await _context.SaveChangesAsync();
+
+            if (saveChanges > 0)
+            {
+                var data = await GetByUrlCode(hatimName);
+                return Ok(data);
+            }
+            return BadRequest();
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<Hatim>>> GetAll()
         {
@@ -34,16 +52,23 @@ namespace OnlineHatim.Controllers
             return Ok(hatimler);
         }
 
-        [HttpGet("{code}")]// api/hatim/londra
-        public async Task<ActionResult<Hatim>> GetByUrlCode(string code)
+        [HttpGet("{code}")]// api/hatim/mirfan
+        public async Task<ActionResult<Hatim>> GetByHatimName(string code)
         {
-            var hatim = await _context.Hatims.Include(p => p.HatimCuz).ThenInclude(p => p.User).FirstOrDefaultAsync(p => p.UrlCode == code);
-            if (hatim == null)
+            var data = await GetByUrlCode(code);
+            if (data == null)
                 return BadRequest();
 
+            return Ok(data);
+        }
+
+        [NonAction]
+        public async Task<HatimDto> GetByUrlCode(string code)
+        {
+            var hatim = await _context.Hatims.Include(p => p.HatimCuz).FirstOrDefaultAsync(p => p.UrlCode == code);
             var cuz = hatim.HatimCuz.OrderBy(p => p.CuzNo).ToList();
 
-            return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name, HatimCuz = cuz });
+            return new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate.Date, Name = hatim.Name, HatimCuz = cuz };
         }
 
         [HttpPost]
@@ -74,6 +99,7 @@ namespace OnlineHatim.Controllers
 
             return Ok(new HatimDto { Name = hatim.Name, EndDate = hatim.EndDate, UrlCode = hatim.UrlCode });
         }
+
         [NonAction]
         string CreateUrlCode(string name)
         {
