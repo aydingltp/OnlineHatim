@@ -10,56 +10,68 @@
     </div>
     <div class="row justify-content-center align-items-center">
       <div class="col-lg-4 col-sm-6">
-        <small class="d-block text-uppercase font-weight-bold mb-3"
-          >HATİM İSMİ</small>
-        <base-input placeholder="Hatim İsmi" v-model="hatim.name" :disabled="saveEnabled"> </base-input>
+        <small class="d-block text-uppercase font-weight-bold mb-3">HATİM İSMİ</small>
+        <base-input
+          placeholder="Hatim İsmi"
+          v-model="hatim.name"
+          :disabled="saveEnabled">
+        </base-input>
       </div>
       <div class="col-lg-4 col-sm-6">
         <small class="d-block text-uppercase font-weight-bold mb-3"
-          >BİTİŞ TARİHİ</small
-        >
+          >BİTİŞ TARİHİ</small>
         <base-input
           v-model="hatim.endDate"
           addon-left-icon="ni ni-calendar-grid-58"
-          :disabled="saveEnabled" 
-        >
+          :disabled="saveEnabled">
           <flat-picker
             slot-scope="{ focus, blur }"
             @on-open="focus"
             @on-close="blur"
             :config="{ allowInput: true }"
             class="form-control datepicker"
-            v-model="hatim.endDate"
-          >
+            v-model="hatim.endDate">
           </flat-picker>
         </base-input>
       </div>
     </div>
     <div class="row justify-content-center align-items-center">
-      <base-checkbox class="mb-3" v-model="hatim.isPrivate" :disabled="saveEnabled" >
-      Gizli Hatim
+      <base-checkbox
+        class="mb-3"
+        v-model="hatim.isPrivate"
+        :disabled="saveEnabled">
+        Gizli Hatim
       </base-checkbox>
     </div>
-    <div class="row justify-content-center align-items-center" v-if="hatim.isPrivate">
-          <p style="font-color: green">(Hatminiz hatim listesinde gözükmeyecektir.)</p>
+    <div
+      class="row justify-content-center align-items-center"
+      v-if="hatim.isPrivate">
+      <p style="font-color: green">
+        (Hatminiz hatim listesinde gözükmeyecektir.)
+      </p>
     </div>
-      
+
     <div class="row justify-content-center align-items-center pb-4">
-      <base-button @click="post" :disabled="saveEnabled" class="btn-1" type="success">Kaydet</base-button>
+      <base-button
+        @click="post"
+        :disabled="saveEnabled"
+        class="btn-1"
+        type="success">
+        Kaydet</base-button>
     </div>
     <div class="row justify-content-center align-items-center" v-if="show">
       <base-alert type="success" icon="ni ni-like-2">
         <span slot="text"
-          ><strong>Hatminiz başarıyla oluşturuldu!   </strong> 
+          ><strong>Hatminiz başarıyla oluşturuldu! </strong>
         </span>
       </base-alert>
     </div>
 
-<div class="row justify-content-center align-items-center" v-if="show">
- Linkiniz : 
-          <a v-bind:href="'/' + hatim.urlCode">  &nbsp; hatim.dirayettv.net/{{ hatim.urlCode }}</a>
-</div>
-   
+    <div class="row justify-content-center align-items-center" v-if="show">
+      Linkiniz :
+      <a v-bind:href="'/' + hatim.urlCode">
+        &nbsp; {{link + hatim.urlCode }}</a>
+    </div>
   </div>
 </template>
 
@@ -79,7 +91,7 @@ export default {
         name: null,
         endDate: null,
         urlCode: null,
-        isPrivate: false
+        isPrivate: false,
       },
       link: "hatim.dirayettv.net/",
     };
@@ -98,14 +110,13 @@ export default {
     },
   },
   computed: {
-       saveEnabled(){
-                if(this.show == false){
-                    return false;                    
-                }
-                else{
-                    return true;
-                }
-            },
-  }
+    saveEnabled() {
+      if (this.show == false) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
 };
 </script>
