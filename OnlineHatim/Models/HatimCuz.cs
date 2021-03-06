@@ -11,10 +11,10 @@ namespace OnlineHatim.Models
     public class HatimCuz
     {
         public int Id { get; set; }
-        public int? UserId { get; set; }
-        public User User { get; set; }
+        public string FullName { get; set; }
+
         public int CuzNo { get; set; }
-        //public bool Read { get; set; }
+
         [JsonIgnore]
         public Hatim Hatim { get; set; }
 
