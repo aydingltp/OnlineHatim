@@ -21,7 +21,7 @@
                    {{ cuz.name }}
                 </router-link>
               </td>
-              <td>{{ cuz.endDate }}</td>
+              <td>{{ cuz.endDate | moment("DD / MM / YYYY")  }}</td>
             </tr>
           </tbody>
         </table>

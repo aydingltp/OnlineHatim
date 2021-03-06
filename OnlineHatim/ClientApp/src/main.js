@@ -6,7 +6,7 @@ import './registerServiceWorker'
 import Notifications from 'vue-notification'
 
 Vue.use(Notifications)
-
+Vue.use(require('vue-moment'));
 
 Vue.config.productionTip = false;
 Vue.use(Argon);
