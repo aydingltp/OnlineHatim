@@ -44,7 +44,7 @@ namespace OnlineHatim.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Hatim>>> GetAll()
         {
-            var hatimler = await _context.Hatims.ToListAsync();
+            var hatimler = await _context.Hatims.Where(p => p.IsPrivate == false).ToListAsync();
 
             if (hatimler.Count == 0)
                 return BadRequest();
