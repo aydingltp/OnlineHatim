@@ -13,7 +13,6 @@ namespace OnlineHatim.Models
             
         }
         public DbSet<Hatim> Hatims { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<HatimCuz> HatimCuzes { get; set; }
 
 
