@@ -11,16 +11,14 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Cüz No:</th>
-              <th scope="col">İsim Soyisim</th>
+              <th scope="col">Cüz:</th>
+              <th scope="col">İsim & Soyisim</th>
               <th scope="col">Durum</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(cuz, id) in cuzler" :key="id">
-              <td>
-                 {{ cuz.cuzNo }}. Cüz
-              </td>
+              <td class="cuzno">{{ cuz.cuzNo }}.Cüz</td>
 
               <td v-if="cuz.fullName">
                 <input
@@ -40,9 +38,7 @@
               </td>
 
               <td v-if="cuz.fullName">
-                <span class="badge text-uppercase badge-danger"
-                  >Cüz Alındı</span
-                >
+                <span class="badge text-uppercase badge-danger">Alındı</span>
               </td>
 
               <td v-else>
@@ -93,7 +89,7 @@ export default {
               group: "foo",
               title: "Cüz Alındı.",
               text: "Allah kabul etsin.",
-              type: "success"
+              type: "success",
             });
           } else {
             console.log("hata oluştu.");
@@ -111,3 +107,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media only screen and (max-width: 700px) {
+  .cuzno {
+    font-size: 0.9rem;
+  }
+  th,
+  td {
+    vertical-align: middle !important ;
+  }
+}
+</style>
