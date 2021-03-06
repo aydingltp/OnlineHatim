@@ -37,13 +37,13 @@ namespace OnlineHatim.Controllers
         [HttpGet("{code}")]// api/hatim/londra
         public async Task<ActionResult<Hatim>> GetByUrlCode(string code)
         {
-            var hatim = await _context.Hatims.Include(p => p.HatimCuz).ThenInclude(p=>p.User).FirstOrDefaultAsync(p => p.UrlCode == code);
+            var hatim = await _context.Hatims.Include(p => p.HatimCuz).ThenInclude(p => p.User).FirstOrDefaultAsync(p => p.UrlCode == code);
             if (hatim == null)
                 return BadRequest();
 
-            var cuz = hatim.HatimCuz.OrderBy(p=>p.CuzNo).ToList();
+            var cuz = hatim.HatimCuz.OrderBy(p => p.CuzNo).ToList();
 
-            return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name, HatimCuz = cuz});
+            return Ok(new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate, Name = hatim.Name, HatimCuz = cuz });
         }
 
         [HttpPost]
@@ -74,7 +74,6 @@ namespace OnlineHatim.Controllers
 
             return Ok(new HatimDto { Name = hatim.Name, EndDate = hatim.EndDate, UrlCode = hatim.UrlCode });
         }
-
         [NonAction]
         string CreateUrlCode(string name)
         {
@@ -82,7 +81,15 @@ namespace OnlineHatim.Controllers
             var i = 0;
             while (_context.Hatims.Any(p => p.UrlCode == urlCode))
             {
-                urlCode += i;
+                if (i >= 1)
+                {
+                    urlCode = urlCode.Substring(0, urlCode.Length - 1);
+                    urlCode += i;
+                }
+                else
+                {
+                    urlCode += i;
+                }
                 i++;
             }
 
