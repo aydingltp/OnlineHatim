@@ -30,16 +30,19 @@ namespace OnlineHatim.Controllers
             var cuz = hatim.HatimCuz.Where(p => p.CuzNo == id + 1).FirstOrDefault();
 
             // cüzü başkası aldımı kontrol eksik
-            cuz.FullName = fullName;
-            _context.Update(hatim);
-
-            var saveChanges = await _context.SaveChangesAsync();
-
-            if (saveChanges > 0)
+            if (cuz.FullName == null)
             {
-                var data = await GetByUrlCode(hatimName);
-                return Ok(data);
-            }
+                cuz.FullName = fullName;
+                _context.Update(hatim);
+                var saveChanges = await _context.SaveChangesAsync();
+
+                if (saveChanges > 0)
+                {
+                    var data = await GetByUrlCode(hatimName);
+                    return Ok(data);
+                }
+            }   
+            
             return BadRequest();
         }
 
