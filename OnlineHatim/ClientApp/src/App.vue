@@ -63,9 +63,6 @@ td {
     padding: 0.5rem;
     vertical-align: middle !important;
   }
-  .mr-5,
-  .mx-5 {
-    margin-right: 0rem !important;
-  }
+ 
 }
 </style>
