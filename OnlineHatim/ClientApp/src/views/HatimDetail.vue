@@ -82,12 +82,21 @@ export default {
   },
   methods: {
     async submit(id, fullName) {
+      if(fullName==null){
+        this.$notify({
+              group: "foo",
+              title: "Boş Girilemez",
+              text: "Lütfen isim ve soyisim giriniz.",
+              type: "warn",
+            });
+            return
+      }
       await axios
         .post(
           "api/hatim/takecuz/" + this.title + "/" + id + "?fullName=" + fullName
         )
         .then((obj) => {
-          if (obj.status === 200) {            
+          if (obj.status === 200) {        
             this.cuzler = obj.data.hatimCuz;
             console.log("cuzler : " + obj.data.hatimCuz);
             this.hatim = obj.data;
@@ -97,8 +106,8 @@ export default {
               text: "Allah kabul etsin.",
               type: "success",
             });
-          } else {
-            console.log("hata oluştu.");
+          } if(obj.status === 400) {
+            console.log("400 hata oluştu.");
           }
         });
     },
