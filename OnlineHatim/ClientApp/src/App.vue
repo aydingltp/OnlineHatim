@@ -1,13 +1,11 @@
 <template>
-  <div id="app">   
-    <main>
-      <fade-transition origin="center" mode="out-in" :duration="250">
-        <router-view />
-      </fade-transition>
-      <div class="footer">
-        <p>© Hayrat Yardım 2021</p>
-      </div>
-    </main>
+  <div id="app">
+    <fade-transition origin="center" mode="out-in" :duration="250">
+      <router-view />
+    </fade-transition>
+    <div class="footer">
+      <p>© Hayrat Yardım 2021</p>
+    </div>
   </div>
 </template>
 <script>
@@ -22,7 +20,6 @@ export default {
 </script>
 
 <style scoped>
-
 .footer {
   position: fixed;
   left: 0;
@@ -65,6 +62,10 @@ td {
   .table td {
     padding: 0.5rem;
     vertical-align: middle !important;
+  }
+  .mr-5,
+  .mx-5 {
+    margin-right: 0rem !important;
   }
 }
 </style>

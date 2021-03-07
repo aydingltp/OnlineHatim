@@ -3,10 +3,10 @@
     <div class="col px-0 pt-5">
       <div class="row justify-content-center align-items-center">
         <div class="col-lg-7 text-center pt-lg">
-          <div>
-            <h1>Online Hatim Uygulaması</h1>
-            <div>
-              <router-link to="/hatim-create">
+            <h1 class="pb-4">Online Hatim Uygulaması</h1>
+            <div class="row">
+              <div class="col pb-3">
+                 <router-link to="/hatim-create">
                 <base-button
                   tag="a"
                   href="/hatim-create"
@@ -16,7 +16,9 @@
                   >Hatim Oluştur
                 </base-button>
               </router-link>
-              <router-link to="/hatim-list">
+              </div>
+              <div class="col">
+                 <router-link to="/hatim-list">
                 <base-button
                   tag="a"
                   href="/hatim-list"
@@ -26,8 +28,9 @@
                   >Hatme Katıl
                 </base-button>
               </router-link>
+              </div>
+             
             </div>
-          </div>
         </div>
       </div>
     </div>
