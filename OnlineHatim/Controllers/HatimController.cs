@@ -28,6 +28,8 @@ namespace OnlineHatim.Controllers
         {
             var hatim = await _context.Hatims.Include(p => p.HatimCuz).Where(p => p.UrlCode == hatimName).FirstOrDefaultAsync();
             var cuz = hatim.HatimCuz.Where(p => p.CuzNo == id + 1).FirstOrDefault();
+
+            // cüzü başkası aldımı kontrol eksik
             cuz.FullName = fullName;
             _context.Update(hatim);
 
@@ -48,7 +50,7 @@ namespace OnlineHatim.Controllers
 
             if (hatimler.Count == 0)
                 return BadRequest();
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
             return Ok(hatimler);
         }
 
@@ -67,7 +69,7 @@ namespace OnlineHatim.Controllers
         {
             var hatim = await _context.Hatims.Include(p => p.HatimCuz).FirstOrDefaultAsync(p => p.UrlCode == code);
             var cuz = hatim.HatimCuz.OrderBy(p => p.CuzNo).ToList();
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
             return new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate.Date, Name = hatim.Name, HatimCuz = cuz };
         }
 
