@@ -31,10 +31,11 @@ namespace OnlineHatim
             services.AddSingleton<ISlugHelper,SlugHelper>();
             services.AddDbContext<DataContext>(
                 options => options.UseSqlServer(@"Server = (localdb)\MSSQLLocalDB; Database = OnlineHatim"));
+          
             services.AddControllers();
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp";
+                configuration.RootPath = "ClientApp/dist";
             });
         }
 
