@@ -15,7 +15,7 @@
             </tr>
           </thead>
           <tbody>
-            <div v-if="loading">
+            <div class="content" v-if="loading">
               <content-placeholders>
                 <content-placeholders-text :lines="30" />
               </content-placeholders>
