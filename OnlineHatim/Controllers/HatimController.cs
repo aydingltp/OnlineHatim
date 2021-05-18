@@ -26,11 +26,16 @@ namespace OnlineHatim.Controllers
         [HttpPost("takecuz/{hatimName}/{id?}")]
         public async Task<ActionResult> TakeCuzById([FromRoute] string hatimName, [FromRoute] int id, [FromQuery] string fullName)
         {
+            fullName.Trim();
+
+            if(string.IsNullOrEmpty(fullName)) 
+                return BadRequest();
+
             var hatim = await _context.Hatims.Include(p => p.HatimCuz).Where(p => p.UrlCode == hatimName).FirstOrDefaultAsync();
             var cuz = hatim.HatimCuz.Where(p => p.CuzNo == id + 1).FirstOrDefault();
 
-            // cüzü başkası aldımı kontrol eksik
-            if (cuz.FullName == null)
+            // cüzü başkası aldımı kontrol eksik tmmdır :)
+            if (cuz.FullName == null || string.IsNullOrEmpty(cuz.FullName))
             {
                 cuz.FullName = fullName;
                 _context.Update(hatim);
@@ -53,7 +58,7 @@ namespace OnlineHatim.Controllers
 
             if (hatimler.Count == 0)
                 return BadRequest();
-            System.Threading.Thread.Sleep(500);
+                
             return Ok(hatimler);
         }
 
@@ -72,7 +77,7 @@ namespace OnlineHatim.Controllers
         {
             var hatim = await _context.Hatims.Include(p => p.HatimCuz).FirstOrDefaultAsync(p => p.UrlCode == code);
             var cuz = hatim.HatimCuz.OrderBy(p => p.CuzNo).ToList();
-            System.Threading.Thread.Sleep(500);
+            
             return new HatimDto { UrlCode = hatim.UrlCode, EndDate = hatim.EndDate.Date, Name = hatim.Name, HatimCuz = cuz };
         }
 
