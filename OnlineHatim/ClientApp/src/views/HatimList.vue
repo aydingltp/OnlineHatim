@@ -52,7 +52,7 @@ export default {
   created() {
     axios.get("api/hatim/", {}).then((obj) => {
       this.cuzler = obj.data;
-      console.log(obj.data);
+      //console.log(obj.data);
       this.loading = false;
     });
   },

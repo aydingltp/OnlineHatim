@@ -102,9 +102,9 @@ export default {
         if (obj.status === 200) {
           this.show = true;
           this.hatim = obj.data;
-          console.log(obj.data);
+          //console.log(obj.data);
         } else {
-          console.log("hata oluştu.");
+          //console.log("hata oluştu.");
         }
       });
     },

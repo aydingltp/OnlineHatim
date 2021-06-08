@@ -98,7 +98,7 @@ export default {
         .then((obj) => {
           if (obj.status === 200) {        
             this.cuzler = obj.data.hatimCuz;
-            console.log("cuzler : " + obj.data.hatimCuz);
+            //console.log("cuzler : " + obj.data.hatimCuz);
             this.hatim = obj.data;
             this.$notify({
               group: "foo",
@@ -107,7 +107,7 @@ export default {
               type: "success",
             });
           } if(obj.status === 400) {
-            console.log("400 hata oluştu.");
+            //console.log("400 hata oluştu.");
           }
         });
     },
