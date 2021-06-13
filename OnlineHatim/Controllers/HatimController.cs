@@ -54,7 +54,18 @@ namespace OnlineHatim.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Hatim>>> GetAll()
         {
-            var hatimler = await _context.Hatims.Where(p => p.IsPrivate == false).ToListAsync();
+            var hatimler = await _context.Hatims.Where(p => p.IsPrivate == false).OrderByDescending(i=>i.CreatedDate).ToListAsync();
+
+            if (hatimler.Count == 0)
+                return BadRequest();
+                
+            return Ok(hatimler);
+        }
+
+        [HttpGet("hatim-gizli")]
+        public async Task<ActionResult<List<Hatim>>> Gizli()
+        {
+            var hatimler = await _context.Hatims.Where(p => p.IsPrivate == true).OrderByDescending(i=>i.CreatedDate).ToListAsync();
 
             if (hatimler.Count == 0)
                 return BadRequest();
