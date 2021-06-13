@@ -4,7 +4,8 @@
       <router-view />
     </fade-transition>
     <div class="footer">
-      <p>© Hayrat Yardım 2021</p>
+      <a href="https://www.medium.com/dirayettv" style="color:white">© Dirayet Tv 2021</a>
+      <p></p>
     </div>
   </div>
 </template>
