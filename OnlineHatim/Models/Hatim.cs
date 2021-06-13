@@ -15,6 +15,6 @@ namespace OnlineHatim.Models
         public bool IsEnd { get; set; } = false;
         public bool IsPrivate { get; set; }
         public List<HatimCuz> HatimCuz { get; set; }
-
+        public int Count { get; set; }
     }
 }
