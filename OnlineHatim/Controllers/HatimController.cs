@@ -38,6 +38,11 @@ namespace OnlineHatim.Controllers
             if (cuz.FullName == null || string.IsNullOrEmpty(cuz.FullName))
             {
                 cuz.FullName = fullName;
+                hatim.Count++;
+                if(hatim.Count == 30)
+                {
+                    hatim.IsEnd = true;
+                }
                 _context.Update(hatim);
                 var saveChanges = await _context.SaveChangesAsync();
 
