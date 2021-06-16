@@ -11,6 +11,7 @@
           <thead>
             <tr>
               <th scope="col">Hatim İsmi</th>
+              <th scope="col">Durum</th>
               <th scope="col">Bitiş Tarihi</th>
             </tr>
           </thead>
@@ -26,6 +27,12 @@
                 <router-link :to="'/' + cuz.urlCode">
                   {{ cuz.name }}
                 </router-link>
+              </td>
+              <td v-if="cuz.isEnd">
+                <span class="badge text-uppercase badge-success">{{cuz.count}} / 30 </span>
+              </td>
+              <td v-else> 
+                 <span class="badge text-uppercase badge-warning">{{cuz.count}} / 30 </span>                
               </td>
               <td>{{ cuz.endDate | moment("DD / MM / YYYY") }}</td>
             </tr>
